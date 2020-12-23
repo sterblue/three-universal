@@ -2407,7 +2407,7 @@ THREE.GLTFLoader = ( function () {
 
 		var textureDef = json.textures[ textureIndex ];
 
-		var URL = self.URL || self.webkitURL;
+		var URL = THREE._window.self.URL || THREE._window.self.webkitURL;
 
 		var sourceURI = source.uri;
 		var isObjectURL = false;

@@ -413,13 +413,13 @@ THREE.BasisTextureLoader.BasisWorker = function () {
 
 						}
 
-						self.postMessage( { type: 'transcode', id: message.id, width, height, hasAlpha, mipmaps, format }, buffers );
+						THREE._window.self.postMessage( { type: 'transcode', id: message.id, width, height, hasAlpha, mipmaps, format }, buffers );
 
 					} catch ( error ) {
 
 						console.error( error );
 
-						self.postMessage( { type: 'error', id: message.id, error: error.message } );
+						THREE._window.self.postMessage( { type: 'error', id: message.id, error: error.message } );
 
 					}
 

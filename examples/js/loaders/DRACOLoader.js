@@ -444,13 +444,13 @@ THREE.DRACOLoader.DRACOWorker = function () {
 
 						if ( geometry.index ) buffers.push( geometry.index.array.buffer );
 
-						self.postMessage( { type: 'decode', id: message.id, geometry }, buffers );
+						THREE._window.self.postMessage( { type: 'decode', id: message.id, geometry }, buffers );
 
 					} catch ( error ) {
 
 						console.error( error );
 
-						self.postMessage( { type: 'error', id: message.id, error: error.message } );
+						THREE._window.self.postMessage( { type: 'error', id: message.id, error: error.message } );
 
 					} finally {
 
@@ -503,7 +503,7 @@ THREE.DRACOLoader.DRACOWorker = function () {
 		// Gather all vertex attributes.
 		for ( var attributeName in attributeIDs ) {
 
-			var attributeType = self[ attributeTypes[ attributeName ] ];
+			var attributeType = THREE._window.self[ attributeTypes[ attributeName ] ];
 
 			var attribute;
 			var attributeID;
