@@ -30,6 +30,8 @@ let _HTMLCanvasElement;
 let _ImageBitmap;
 let _createImageBitmap;
 
+let __window;
+
 function defineGlobals() {
 
 	try {
@@ -65,6 +67,8 @@ function defineGlobals() {
 		_HTMLCanvasElement = window.HTMLCanvasElement;
 		_ImageBitmap = window.ImageBitmap;
 		_createImageBitmap = window.createImageBitmap;
+
+		__window = window;
 
 	} catch ( e ) { }
 
@@ -103,3 +107,5 @@ export const HTMLImageElement = _HTMLImageElement;
 export const HTMLCanvasElement = _HTMLCanvasElement;
 export const ImageBitmap = _ImageBitmap;
 export const createImageBitmap = _createImageBitmap;
+
+export const _window = __window;

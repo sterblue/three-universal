@@ -44,3 +44,4 @@ export const HTMLCanvasElement = window.HTMLCanvasElement;
 export const ImageBitmap = window.ImageBitmap;
 export const createImageBitmap = window.createImageBitmap;
 
+export const _window = window;
