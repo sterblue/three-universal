@@ -1,7 +1,8 @@
 import babel from "@rollup/plugin-babel";
 import inject from '@rollup/plugin-inject';
 import { terser } from "rollup-plugin-terser";
-import { namesGlobal } from '../../src/window.js';
+import * as Window from '../../src/window.js';
+import * as THREE from '../../src/Three.js';
 import path from "path";
 
 if ( String.prototype.replaceAll === undefined ) {
@@ -14,15 +15,16 @@ if ( String.prototype.replaceAll === undefined ) {
 
 }
 
+const threeExports = Object.keys( THREE ).toString().split( "," );
+const namesGlobal = Object.keys( Window ).toString().split( "," );
+
 const configInject = namesGlobal.reduce(
 	( currentConfig, name ) => {
 
 		currentConfig[ name ] = [ path.resolve( 'src/window.js' ), name ];
 		return currentConfig;
 
-	}, {
-		window: [ path.resolve( 'src/window.js' ), "*" ]
-	}
+	}, {}
 );
 
 function glconstants() {
@@ -332,6 +334,16 @@ const babelrc = {
 
 export default [
 	{
+		input: 'src/window.js',
+		output: [
+			{
+				format: 'umd',
+				name: 'THREE',
+				file: 'utils/window.js'
+			}
+		]
+	},
+	{
 		input: 'src/Three.js',
 		plugins: [
 			polyfills(),
@@ -407,7 +419,8 @@ export default [
 		output: [
 			{
 				format: 'esm',
-				file: 'build/three.module.node.js'
+				file: 'build/three.module.node.js',
+				outro: "export {" + namesGlobal.filter( value => ! threeExports.includes( value ) ).map( value => " " + value ).toString() + " };"
 			}
 		]
 	}

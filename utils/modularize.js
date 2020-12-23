@@ -1,8 +1,11 @@
+const _window = require( './window.js' );
 var fs = require( 'fs' );
 THREE = require( '../build/three.js' );
+const namesGlobal = Object.keys( _window ).toString().split( "," );
 
 var srcFolder = __dirname + '/../examples/js/';
 var dstFolder = __dirname + '/../examples/jsm/';
+var dstFolderNode = __dirname + '/../examples/node/';
 
 var files = [
 	{ path: 'animation/AnimationClipCreator.js', dependencies: [], ignoreList: [] },
@@ -229,13 +232,24 @@ var files = [
 for ( var i = 0; i < files.length; i ++ ) {
 
 	var file = files[ i ];
-	convert( file.path, file.dependencies, file.ignoreList );
+	convert( file.path, file.dependencies, file.ignoreList, false );
+
+	if ( file.nodeVersion ) {
+
+		convert( file.nodeVersion, file.dependencies, file.ignoreList, true );
+
+	} else {
+
+		convert( file.path, file.dependencies, file.ignoreList, true );
+
+	}
+
 
 }
 
 //
 
-function convert( path, exampleDependencies, ignoreList ) {
+function convert( path, exampleDependencies, ignoreList, isNode ) {
 
 	var contents = fs.readFileSync( srcFolder + path, 'utf8' );
 
@@ -308,7 +322,34 @@ function convert( path, exampleDependencies, ignoreList ) {
 
 	// core imports
 
-	if ( keys ) imports.push( `import {${keys}\n} from "${pathPrefix}../../build/three.module.js";` );
+	if ( keys ) {
+
+		if ( isNode ) {
+
+			const domGlobals = namesGlobal
+				.filter( name => RegExp( `\\s${name}` ).test( contents ) )
+				.map( value => '\n\t' + value )
+				.sort()
+				.toString();
+			if ( domGlobals ) {
+
+				imports.push( `import {${keys + "," + domGlobals}\n} from "${pathPrefix}../../build/three.module.node.js";` );
+
+				// 	imports.push( `import {${domGlobals}\n} from "${pathPrefix}../../src/window.js";` );
+
+			} else {
+
+				imports.push( `import {${keys}\n} from "${pathPrefix}../../build/three.module.node.js";` );
+
+			}
+
+		} else {
+
+			imports.push( `import {${keys}\n} from "${pathPrefix}../../build/three.module.js";` );
+
+		}
+
+	}
 
 	// example imports
 
@@ -325,7 +366,18 @@ function convert( path, exampleDependencies, ignoreList ) {
 	output += contents + `\nexport { ${classNames.join( ', ' )} };\n`;
 
 	// console.log( output );
+	if ( keys ) {
 
-	fs.writeFileSync( dstFolder + path, output, 'utf-8' );
+		if ( isNode ) {
+
+			fs.writeFileSync( dstFolderNode + path, output, 'utf-8' );
+
+		} else {
+
+			fs.writeFileSync( dstFolder + path, output, 'utf-8' );
+
+		}
+
+	}
 
 }

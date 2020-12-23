@@ -1,5 +1,5 @@
 import inject from '@rollup/plugin-inject';
-import { namesGlobal } from '../src/window.js';
+import * as Window from '../../src/window.js';
 import path from "path";
 
 try {
@@ -12,6 +12,8 @@ try {
 	process.exit( 1 );
 
 }
+
+const namesGlobal = Object.keys( Window ).toString().split( "," );
 
 
 const configInject = namesGlobal.reduce(
