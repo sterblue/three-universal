@@ -6,7 +6,7 @@ export default function main() {
 
 	const exporter = new GLTFExporter();
 	const textureLoader = new TextureLoader();
-	textureLoader.load( `file://${__dirname}/../../unit/data/image.jpg`, function ( texture ) {
+	textureLoader.load( `file://${__dirname}/../../data/image.jpg`, function ( texture ) {
 
 		const scene = new Scene();
 		const box = new Mesh(
