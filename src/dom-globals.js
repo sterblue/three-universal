@@ -25,6 +25,10 @@ let _ActiveXObject;
 let _AudioContext;
 let _webkitAudioContext;
 let _XRHand;
+let _HTMLImageElement;
+let _HTMLCanvasElement;
+let _ImageBitmap;
+let _createImageBitmap;
 
 function defineGlobals() {
 
@@ -57,6 +61,10 @@ function defineGlobals() {
 		_AudioContext = window.AudioContext;
 		_webkitAudioContext = window.webkitAudioContext;
 		_XRHand = window.XRHand;
+		_HTMLImageElement = window.HTMLImageElement;
+		_HTMLCanvasElement = window.HTMLCanvasElement;
+		_ImageBitmap = window.ImageBitmap;
+		_createImageBitmap = window.createImageBitmap;
 
 	} catch ( e ) { }
 
@@ -91,3 +99,7 @@ export const ActiveXObject = _ActiveXObject;
 export const AudioContext = _AudioContext;
 export const webkitAudioContext = _webkitAudioContext;
 export const XRHand = _XRHand;
+export const HTMLImageElement = _HTMLImageElement;
+export const HTMLCanvasElement = _HTMLCanvasElement;
+export const ImageBitmap = _ImageBitmap;
+export const createImageBitmap = _createImageBitmap;

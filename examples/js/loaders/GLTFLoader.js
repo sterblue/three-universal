@@ -1845,7 +1845,7 @@ THREE.GLTFLoader = ( function () {
 
 		// Use an ImageBitmapLoader if imageBitmaps are supported. Moves much of the
 		// expensive work of uploading a texture to the GPU off the main thread.
-		if ( typeof createImageBitmap !== 'undefined' && /Firefox/.test( navigator.userAgent ) === false ) {
+		if ( typeof THREE.createImageBitmap !== 'undefined' && /Firefox/.test( navigator.userAgent ) === false ) {
 
 			this.textureLoader = new THREE.ImageBitmapLoader( this.options.manager );
 

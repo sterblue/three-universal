@@ -61,6 +61,8 @@ import * as Geometries from '../geometries/Geometries.js';
 import * as Curves from '../extras/curves/Curves.js';
 import { getTypedArray } from '../utils.js';
 
+import { HTMLImageElement } from '../dom-globals.js';
+
 class ObjectLoader extends Loader {
 
 	constructor( manager ) {

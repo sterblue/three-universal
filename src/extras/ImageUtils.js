@@ -1,4 +1,4 @@
-import { document } from "../dom-globals.js";
+import { document, HTMLCanvasElement } from "../dom-globals.js";
 
 let _canvas;
 

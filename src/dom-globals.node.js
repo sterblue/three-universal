@@ -39,3 +39,8 @@ export const ActiveXObject = window.ActiveXObject;
 export const AudioContext = window.AudioContext;
 export const webkitAudioContext = window.webkitAudioContext;
 export const XRHand = window.XRHand;
+export const HTMLImageElement = window.HTMLImageElement;
+export const HTMLCanvasElement = window.HTMLCanvasElement;
+export const ImageBitmap = window.ImageBitmap;
+export const createImageBitmap = window.createImageBitmap;
+

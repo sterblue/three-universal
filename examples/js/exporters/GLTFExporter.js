@@ -793,9 +793,9 @@ THREE.GLTFExporter.prototype = {
 
 				}
 
-				if ( ( typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement ) ||
-					( typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement ) ||
-					( typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap ) ) {
+				if ( ( typeof THREE.HTMLImageElement !== 'undefined' && image instanceof THREE.HTMLImageElement ) ||
+					( typeof THREE.HTMLCanvasElement !== 'undefined' && image instanceof THREE.HTMLCanvasElement ) ||
+					( typeof THREE.ImageBitmap !== 'undefined' && image instanceof THREE.ImageBitmap ) ) {
 
 					ctx.drawImage( image, 0, 0, canvas.width, canvas.height );
 
