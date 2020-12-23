@@ -387,7 +387,7 @@ export default [
 		plugins: [
 			alias( {
 				entries: [
-					{ find: /^(.*)dom-globals.js$/, replacement: `${__dirname}/../../src/dom-globals.node.js` }
+					{ find: /^(.*)window.js$/, replacement: `${__dirname}/../../src/window.node.js` }
 				]
 			} ),
 			addons(),
