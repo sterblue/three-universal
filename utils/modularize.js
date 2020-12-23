@@ -1,3 +1,14 @@
+try {
+
+	require( './window.js' );
+
+} catch {
+
+	console.log( '\x1b[31mError! You need to build utils/window.js. Please run `npm run build`\x1b[37m' );
+	process.exit( 1 );
+
+}
+
 const _window = require( './window.js' );
 var fs = require( 'fs' );
 THREE = require( '../build/three.js' );
