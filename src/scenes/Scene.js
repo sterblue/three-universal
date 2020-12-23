@@ -1,6 +1,6 @@
 import { Object3D } from '../core/Object3D.js';
 
-import { _window } from '../dom-globals.js';
+import { _window } from '../window.js';
 
 class Scene extends Object3D {
 

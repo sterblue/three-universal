@@ -39,7 +39,7 @@ import { WebGLUtils } from './webgl/WebGLUtils.js';
 import { WebXRManager } from './webxr/WebXRManager.js';
 import { WebGLMaterials } from "./webgl/WebGLMaterials.js";
 
-import { _window } from "../dom-globals.js";
+import { _window } from '../window.js';
 
 function createCanvasElement() {
 

@@ -14,7 +14,7 @@ import { MathUtils } from '../math/MathUtils.js';
 import { Vector2 } from '../math/Vector2.js';
 import { Matrix3 } from '../math/Matrix3.js';
 import { ImageUtils } from '../extras/ImageUtils.js';
-import { _window } from '../dom-globals.js';
+import { _window } from '../window.js';
 
 let textureId = 0;
 

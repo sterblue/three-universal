@@ -1,5 +1,5 @@
 import { REVISION } from './constants.js';
-import { _window } from './dom-globals.js';
+import { _window } from './window.js';
 
 export { WebGLMultisampleRenderTarget } from './renderers/WebGLMultisampleRenderTarget.js';
 export { WebGLCubeRenderTarget } from './renderers/WebGLCubeRenderTarget.js';
@@ -156,7 +156,7 @@ export { PMREMGenerator } from './extras/PMREMGenerator.js';
 export { WebGLUtils } from './renderers/webgl/WebGLUtils.js';
 export * from './constants.js';
 export * from './Three.Legacy.js';
-export * from "./dom-globals.js";
+export * from './window.js';
 
 if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 

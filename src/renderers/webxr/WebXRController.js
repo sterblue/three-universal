@@ -1,5 +1,5 @@
 import { Group } from '../../objects/Group.js';
-import { _window } from '../../dom-globals.js';
+import { _window } from '../../window.js';
 
 function WebXRController() {
 

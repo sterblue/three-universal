@@ -1,7 +1,7 @@
 import { Cache } from './Cache.js';
 import { Loader } from './Loader.js';
 
-import { _window } from "../dom-globals.js";
+import { _window } from '../window.js';
 
 function ImageLoader( manager ) {
 
