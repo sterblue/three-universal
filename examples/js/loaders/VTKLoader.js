@@ -897,7 +897,7 @@ THREE.VTKLoader.prototype = Object.assign( Object.create( THREE.Loader.prototype
 
 				}
 
-			} else if ( THREE.ActiveXObject ) {
+			} else if ( THREE._window.ActiveXObject ) {
 
 				try {
 

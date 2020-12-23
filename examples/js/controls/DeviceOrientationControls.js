@@ -26,7 +26,7 @@ THREE.DeviceOrientationControls = function ( object ) {
 
 	var onScreenOrientationChangeEvent = function () {
 
-		scope.screenOrientation = THREE.orientation || 0;
+		scope.screenOrientation = THREE._window.orientation || 0;
 
 	};
 
@@ -62,14 +62,14 @@ THREE.DeviceOrientationControls = function ( object ) {
 
 		// iOS 13+
 
-		if ( THREE.DeviceOrientationEvent !== undefined && typeof THREE.DeviceOrientationEvent.requestPermission === 'function' ) {
+		if ( THREE._window.DeviceOrientationEvent !== undefined && typeof THREE._window.DeviceOrientationEvent.requestPermission === 'function' ) {
 
-			THREE.DeviceOrientationEvent.requestPermission().then( function ( response ) {
+			THREE._window.DeviceOrientationEvent.requestPermission().then( function ( response ) {
 
 				if ( response == 'granted' ) {
 
-					THREE.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
-					THREE.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
+					THREE._window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
+					THREE._window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 
 				}
 
@@ -81,8 +81,8 @@ THREE.DeviceOrientationControls = function ( object ) {
 
 		} else {
 
-			THREE.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
-			THREE.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
+			THREE._window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
+			THREE._window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 
 		}
 
@@ -92,8 +92,8 @@ THREE.DeviceOrientationControls = function ( object ) {
 
 	this.disconnect = function () {
 
-		THREE.removeEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
-		THREE.removeEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
+		THREE._window.removeEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
+		THREE._window.removeEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 
 		scope.enabled = false;
 

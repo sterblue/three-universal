@@ -37,14 +37,14 @@ THREE.VolumeSlice = function ( volume, index, axis ) {
 	this.axis = axis || 'z';
 
 	/**
-	 * @member {THREE.HTMLCanvasElement} canvas The final canvas used for the texture
+	 * @member {THREE._window.HTMLCanvasElement} canvas The final canvas used for the texture
 	 */
 	/**
 	 * @member {CanvasRenderingContext2D} ctx Context of the canvas
 	 */
 	this.canvas = THREE._window.document.createElement( 'canvas' );
 	/**
-	 * @member {THREE.HTMLCanvasElement} canvasBuffer The intermediary canvas used to paint the data
+	 * @member {THREE._window.HTMLCanvasElement} canvasBuffer The intermediary canvas used to paint the data
 	 */
 	/**
 	 * @member {CanvasRenderingContext2D} ctxBuffer Context of the canvas buffer

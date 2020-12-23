@@ -11,7 +11,7 @@ THREE.AfterimagePass = function ( damp ) {
 
 	this.uniforms[ "damp" ].value = damp !== undefined ? damp : 0.96;
 
-	this.textureComp = new THREE.WebGLRenderTarget( THREE.innerWidth, THREE.innerHeight, {
+	this.textureComp = new THREE.WebGLRenderTarget( THREE._window.innerWidth, THREE._window.innerHeight, {
 
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.NearestFilter,
@@ -19,7 +19,7 @@ THREE.AfterimagePass = function ( damp ) {
 
 	} );
 
-	this.textureOld = new THREE.WebGLRenderTarget( THREE.innerWidth, THREE.innerHeight, {
+	this.textureOld = new THREE.WebGLRenderTarget( THREE._window.innerWidth, THREE._window.innerHeight, {
 
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.NearestFilter,

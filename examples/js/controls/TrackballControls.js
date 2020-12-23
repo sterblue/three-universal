@@ -83,8 +83,8 @@ THREE.TrackballControls = function ( object, domElement ) {
 		var box = scope.domElement.getBoundingClientRect();
 		// adjustments come from similar code in the jquery offset() function
 		var d = scope.domElement.ownerDocument.documentElement;
-		scope.screen.left = box.left + THREE.pageXOffset - d.clientLeft;
-		scope.screen.top = box.top + THREE.pageYOffset - d.clientTop;
+		scope.screen.left = box.left + THREE._window.pageXOffset - d.clientLeft;
+		scope.screen.top = box.top + THREE._window.pageYOffset - d.clientTop;
 		scope.screen.width = box.width;
 		scope.screen.height = box.height;
 
@@ -448,7 +448,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
-		THREE.removeEventListener( 'keydown', keydown );
+		THREE._window.removeEventListener( 'keydown', keydown );
 
 		if ( _keyState !== STATE.NONE ) {
 
@@ -476,7 +476,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 		_keyState = STATE.NONE;
 
-		THREE.addEventListener( 'keydown', keydown, false );
+		THREE._window.addEventListener( 'keydown', keydown, false );
 
 	}
 
@@ -713,8 +713,8 @@ THREE.TrackballControls = function ( object, domElement ) {
 		scope.domElement.ownerDocument.removeEventListener( 'pointermove', onPointerMove, false );
 		scope.domElement.ownerDocument.removeEventListener( 'pointerup', onPointerUp, false );
 
-		THREE.removeEventListener( 'keydown', keydown, false );
-		THREE.removeEventListener( 'keyup', keyup, false );
+		THREE._window.removeEventListener( 'keydown', keydown, false );
+		THREE._window.removeEventListener( 'keyup', keyup, false );
 
 	};
 
@@ -730,8 +730,8 @@ THREE.TrackballControls = function ( object, domElement ) {
 	this.domElement.ownerDocument.addEventListener( 'pointermove', onPointerMove, false );
 	this.domElement.ownerDocument.addEventListener( 'pointerup', onPointerUp, false );
 
-	THREE.addEventListener( 'keydown', keydown, false );
-	THREE.addEventListener( 'keyup', keyup, false );
+	THREE._window.addEventListener( 'keydown', keydown, false );
+	THREE._window.addEventListener( 'keyup', keyup, false );
 
 	this.handleResize();
 

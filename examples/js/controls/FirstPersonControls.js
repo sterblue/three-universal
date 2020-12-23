@@ -71,8 +71,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		if ( this.domElement === THREE._window.document ) {
 
-			this.viewHalfX = THREE.innerWidth / 2;
-			this.viewHalfY = THREE.innerHeight / 2;
+			this.viewHalfX = THREE._window.innerWidth / 2;
+			this.viewHalfY = THREE._window.innerHeight / 2;
 
 		} else {
 
@@ -298,8 +298,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		this.domElement.removeEventListener( 'mousemove', _onMouseMove, false );
 		this.domElement.removeEventListener( 'mouseup', _onMouseUp, false );
 
-		THREE.removeEventListener( 'keydown', _onKeyDown, false );
-		THREE.removeEventListener( 'keyup', _onKeyUp, false );
+		THREE._window.removeEventListener( 'keydown', _onKeyDown, false );
+		THREE._window.removeEventListener( 'keyup', _onKeyUp, false );
 
 	};
 
@@ -314,8 +314,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.domElement.addEventListener( 'mousedown', _onMouseDown, false );
 	this.domElement.addEventListener( 'mouseup', _onMouseUp, false );
 
-	THREE.addEventListener( 'keydown', _onKeyDown, false );
-	THREE.addEventListener( 'keyup', _onKeyUp, false );
+	THREE._window.addEventListener( 'keydown', _onKeyDown, false );
+	THREE._window.addEventListener( 'keyup', _onKeyUp, false );
 
 	function bind( scope, fn ) {
 

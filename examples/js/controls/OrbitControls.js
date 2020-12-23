@@ -821,7 +821,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 		// Manually set the focus since calling preventDefault above
 		// prevents the browser from setting it automatically.
 
-		scope.domElement.focus ? scope.domElement.focus() : THREE.focus();
+		scope.domElement.focus ? scope.domElement.focus() : THREE._window.focus();
 
 		var mouseAction;
 

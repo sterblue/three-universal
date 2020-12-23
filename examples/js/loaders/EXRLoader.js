@@ -1704,7 +1704,7 @@ THREE.EXRLoader.prototype = Object.assign( Object.create( THREE.DataTextureLoade
 
 			}
 
-			var stringValue = new THREE.TextDecoder().decode(
+			var stringValue = new THREE._window.TextDecoder().decode(
 				uintBuffer.slice( offset.value, offset.value + endOffset )
 			);
 
@@ -1716,7 +1716,7 @@ THREE.EXRLoader.prototype = Object.assign( Object.create( THREE.DataTextureLoade
 
 		function parseFixedLengthString( buffer, offset, size ) {
 
-			var stringValue = new THREE.TextDecoder().decode(
+			var stringValue = new THREE._window.TextDecoder().decode(
 				new Uint8Array( buffer ).slice( offset.value, offset.value + size )
 			);
 

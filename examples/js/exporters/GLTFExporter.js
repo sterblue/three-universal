@@ -171,9 +171,9 @@ THREE.GLTFExporter.prototype = {
 		 */
 		function stringToArrayBuffer( text ) {
 
-			if ( THREE.TextEncoder !== undefined ) {
+			if ( THREE._window.TextEncoder !== undefined ) {
 
-				return new THREE.TextEncoder().encode( text ).buffer;
+				return new THREE._window.TextEncoder().encode( text ).buffer;
 
 			}
 
@@ -606,7 +606,7 @@ THREE.GLTFExporter.prototype = {
 
 			return new Promise( function ( resolve ) {
 
-				var reader = new THREE.FileReader();
+				var reader = new THREE._window.FileReader();
 				reader.readAsArrayBuffer( blob );
 				reader.onloadend = function () {
 
@@ -793,9 +793,9 @@ THREE.GLTFExporter.prototype = {
 
 				}
 
-				if ( ( typeof THREE.HTMLImageElement !== 'undefined' && image instanceof THREE.HTMLImageElement ) ||
-					( typeof THREE.HTMLCanvasElement !== 'undefined' && image instanceof THREE.HTMLCanvasElement ) ||
-					( typeof THREE.ImageBitmap !== 'undefined' && image instanceof THREE.ImageBitmap ) ) {
+				if ( ( typeof THREE._window.HTMLImageElement !== 'undefined' && image instanceof THREE._window.HTMLImageElement ) ||
+					( typeof THREE._window.HTMLCanvasElement !== 'undefined' && image instanceof THREE._window.HTMLCanvasElement ) ||
+					( typeof THREE._window.ImageBitmap !== 'undefined' && image instanceof THREE._window.ImageBitmap ) ) {
 
 					ctx.drawImage( image, 0, 0, canvas.width, canvas.height );
 
@@ -2059,7 +2059,7 @@ THREE.GLTFExporter.prototype = {
 				var GLB_CHUNK_TYPE_JSON = 0x4E4F534A;
 				var GLB_CHUNK_TYPE_BIN = 0x004E4942;
 
-				var reader = new THREE.FileReader();
+				var reader = new THREE._window.FileReader();
 				reader.readAsArrayBuffer( blob );
 				reader.onloadend = function () {
 
@@ -2093,7 +2093,7 @@ THREE.GLTFExporter.prototype = {
 						binaryChunk
 					], { type: 'application/octet-stream' } );
 
-					var glbReader = new THREE.FileReader();
+					var glbReader = new THREE._window.FileReader();
 					glbReader.readAsArrayBuffer( glbBlob );
 					glbReader.onloadend = function () {
 
@@ -2107,7 +2107,7 @@ THREE.GLTFExporter.prototype = {
 
 				if ( outputJSON.buffers && outputJSON.buffers.length > 0 ) {
 
-					var reader = new THREE.FileReader();
+					var reader = new THREE._window.FileReader();
 					reader.readAsDataURL( blob );
 					reader.onloadend = function () {
 

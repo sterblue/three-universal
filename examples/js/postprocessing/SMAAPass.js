@@ -27,7 +27,7 @@ THREE.SMAAPass = function ( width, height ) {
 	areaTextureImage.src = this.getAreaTexture();
 	areaTextureImage.onload = function () {
 
-		// assigning data to THREE.HTMLImageElement.src is asynchronous (see #15162)
+		// assigning data to THREE._window.HTMLImageElement.src is asynchronous (see #15162)
 		scope.areaTexture.needsUpdate = true;
 
 	};
@@ -44,7 +44,7 @@ THREE.SMAAPass = function ( width, height ) {
 	searchTextureImage.src = this.getSearchTexture();
 	searchTextureImage.onload = function () {
 
-		// assigning data to THREE.HTMLImageElement.src is asynchronous (see #15162)
+		// assigning data to THREE._window.HTMLImageElement.src is asynchronous (see #15162)
 		scope.searchTexture.needsUpdate = true;
 
 	};

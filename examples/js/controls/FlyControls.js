@@ -247,7 +247,7 @@ THREE.FlyControls = function ( object, domElement ) {
 		} else {
 
 			return {
-				size: [ THREE.innerWidth, THREE.innerHeight ],
+				size: [ THREE._window.innerWidth, THREE._window.innerHeight ],
 				offset: [ 0, 0 ]
 			};
 
@@ -278,8 +278,8 @@ THREE.FlyControls = function ( object, domElement ) {
 		this.domElement.removeEventListener( 'mousemove', _mousemove, false );
 		this.domElement.removeEventListener( 'mouseup', _mouseup, false );
 
-		THREE.removeEventListener( 'keydown', _keydown, false );
-		THREE.removeEventListener( 'keyup', _keyup, false );
+		THREE._window.removeEventListener( 'keydown', _keydown, false );
+		THREE._window.removeEventListener( 'keyup', _keyup, false );
 
 	};
 
@@ -295,8 +295,8 @@ THREE.FlyControls = function ( object, domElement ) {
 	this.domElement.addEventListener( 'mousedown', _mousedown, false );
 	this.domElement.addEventListener( 'mouseup', _mouseup, false );
 
-	THREE.addEventListener( 'keydown', _keydown, false );
-	THREE.addEventListener( 'keyup', _keyup, false );
+	THREE._window.addEventListener( 'keydown', _keydown, false );
+	THREE._window.addEventListener( 'keyup', _keyup, false );
 
 	this.updateMovementVector();
 	this.updateRotationVector();
