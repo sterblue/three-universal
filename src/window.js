@@ -44,3 +44,12 @@ export const HTMLCanvasElement = window.HTMLCanvasElement;
 export const ImageBitmap = window.ImageBitmap;
 export const createImageBitmap = window.createImageBitmap;
 export const self = window.self;
+
+export const namesGlobal = [
+	"Blob", "atob", "DOMParser", "document", "XMLHttpRequest", "TextEncoder", "TextDecoder",
+	"decodeURIComponent", "CustomEvent", "WebGLRenderingContext", "WebGL2RenderingContext",
+	"innerWidth", "innerHeight", "DeviceOrientationEvent", "orientation", "addEventListener",
+	"removeEventListener", "focus", "pageXOffset", "pageYOffset", "FileReader", "URL",
+	"ActiveXObject", "AudioContext", "webkitAudioContext", "XRHand", "HTMLImageElement",
+	"HTMLCanvasElement", "ImageBitmap", "createImageBitmap", "self"
+];
