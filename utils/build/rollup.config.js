@@ -1,5 +1,8 @@
 import babel from "@rollup/plugin-babel";
+import inject from '@rollup/plugin-inject';
 import { terser } from "rollup-plugin-terser";
+import { namesGlobal } from '../../src/window.js';
+import path from "path";
 
 if ( String.prototype.replaceAll === undefined ) {
 
@@ -10,6 +13,17 @@ if ( String.prototype.replaceAll === undefined ) {
 	};
 
 }
+
+const configInject = namesGlobal.reduce(
+	( currentConfig, name ) => {
+
+		currentConfig[ name ] = [ path.resolve( 'src/window.js' ), name ];
+		return currentConfig;
+
+	}, {
+		window: [ path.resolve( 'src/window.js' ), "*" ]
+	}
+);
 
 function glconstants() {
 
@@ -378,6 +392,22 @@ export default [
 			{
 				format: 'esm',
 				file: 'build/three.module.js'
+			}
+		]
+	},
+	{
+		input: 'src/Three.js',
+		plugins: [
+			inject( configInject ),
+			addons(),
+			glconstants(),
+			glsl(),
+			header()
+		],
+		output: [
+			{
+				format: 'esm',
+				file: 'build/three.module.node.js'
 			}
 		]
 	}
