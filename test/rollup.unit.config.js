@@ -17,11 +17,11 @@ try {
 const configInject = namesGlobal.reduce(
 	( currentConfig, name ) => {
 
-		currentConfig[ name ] = [ path.resolve( 'src/window.js' ), name ];
+		currentConfig[ name ] = [ path.resolve( '../src/window.js' ), name ];
 		return currentConfig;
 
 	}, {
-		window: [ path.resolve( 'src/window.js' ), "*" ]
+		window: [ path.resolve( '../src/window.js' ), "*" ]
 	}
 );
 

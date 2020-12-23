@@ -58,7 +58,7 @@ export default QUnit.module( 'Loaders', () => {
 			const done = assert.async();
 			const imageLoader = new ImageLoader();
 			imageLoader.load(
-				`file://${__dirname}/../data/image.jpg`,
+				`file://${__dirname}/../../data/image.jpg`,
 				// onLoad callback
 				function ( data ) {
 
