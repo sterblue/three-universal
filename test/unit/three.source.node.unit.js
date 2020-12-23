@@ -1,13 +1,13 @@
 import './utils/console-wrapper.js';
 import './utils/qunit-utils.js';
 
-// //src
+// src
 import './src/constants.tests';
 import './src/polyfills.tests';
 import './src/utils.tests';
 
 
-// //src/animation
+// src/animation
 import './src/animation/AnimationAction.tests';
 import './src/animation/AnimationClip.tests';
 import './src/animation/AnimationMixer.tests';
@@ -17,7 +17,7 @@ import './src/animation/KeyframeTrack.tests';
 import './src/animation/PropertyBinding.tests';
 import './src/animation/PropertyMixer.tests';
 
-// //src/animation/tracks
+// src/animation/tracks
 import './src/animation/tracks/BooleanKeyframeTrack.tests';
 import './src/animation/tracks/ColorKeyframeTrack.tests';
 import './src/animation/tracks/NumberKeyframeTrack.tests';
@@ -26,7 +26,7 @@ import './src/animation/tracks/StringKeyframeTrack.tests';
 import './src/animation/tracks/VectorKeyframeTrack.tests';
 
 
-// //src/audio
+// src/audio
 import './src/audio/Audio.tests';
 import './src/audio/AudioAnalyser.tests';
 import './src/audio/AudioContext.tests';
@@ -34,7 +34,7 @@ import './src/audio/AudioListener.tests';
 import './src/audio/PositionalAudio.tests';
 
 
-// //src/cameras
+// src/cameras
 import './src/cameras/ArrayCamera.tests';
 import './src/cameras/Camera.tests';
 import './src/cameras/CubeCamera.tests';
@@ -43,7 +43,7 @@ import './src/cameras/PerspectiveCamera.tests';
 import './src/cameras/StereoCamera.tests';
 
 
-// //src/core
+// src/core
 import './src/core/BufferAttribute.tests';
 import './src/core/BufferGeometry.tests';
 import './src/core/Clock.tests';
@@ -62,10 +62,10 @@ import './src/core/Raycaster.tests';
 import './src/core/Uniform.tests';
 
 
-// //src/extras
+// src/extras
 import './src/extras/ShapeUtils.tests';
 
-// //src/extras/core
+// src/extras/core
 import './src/extras/core/Curve.tests';
 import './src/extras/core/CurvePath.tests';
 import './src/extras/core/Font.tests';
@@ -74,7 +74,7 @@ import './src/extras/core/Path.tests';
 import './src/extras/core/Shape.tests';
 import './src/extras/core/ShapePath.tests';
 
-// //src/extras/curves
+// src/extras/curves
 import './src/extras/curves/ArcCurve.tests';
 import './src/extras/curves/CatmullRomCurve3.tests';
 import './src/extras/curves/CubicBezierCurve.tests';
@@ -86,11 +86,11 @@ import './src/extras/curves/QuadraticBezierCurve.tests';
 import './src/extras/curves/QuadraticBezierCurve3.tests';
 import './src/extras/curves/SplineCurve.tests';
 
-// //src/extras/objects
+// src/extras/objects
 import './src/extras/objects/ImmediateRenderObject.tests';
 
 
-// //src/geometries
+// src/geometries
 import './src/geometries/BoxGeometry.tests';
 import './src/geometries/CircleGeometry.tests';
 import './src/geometries/ConeGeometry.tests';
@@ -115,7 +115,7 @@ import './src/geometries/TubeGeometry.tests';
 import './src/geometries/WireframeGeometry.tests';
 
 
-// //src/helpers
+// src/helpers
 import './src/helpers/ArrowHelper.tests';
 import './src/helpers/AxesHelper.tests';
 import './src/helpers/Box3Helper.tests';
@@ -131,7 +131,7 @@ import './src/helpers/SkeletonHelper.tests';
 import './src/helpers/SpotLightHelper.tests';
 
 
-// //src/lights
+// src/lights
 import './src/lights/AmbientLight.tests';
 import './src/lights/DirectionalLight.tests';
 import './src/lights/DirectionalLightShadow.tests';
@@ -144,7 +144,7 @@ import './src/lights/SpotLight.tests';
 import './src/lights/SpotLightShadow.tests';
 
 
-// //src/loaders
+// src/loaders
 import './src/loaders/AnimationLoader.tests';
 import './src/loaders/AudioLoader.tests';
 import './src/loaders/BufferGeometryLoader.tests';
@@ -163,7 +163,7 @@ import './src/loaders/ObjectLoader.tests';
 import './src/loaders/TextureLoader.tests';
 
 
-// //src/materials
+//src/materials
 import './src/materials/LineBasicMaterial.tests';
 import './src/materials/LineDashedMaterial.tests';
 import './src/materials/Material.tests';
@@ -183,7 +183,7 @@ import './src/materials/ShadowMaterial.tests';
 import './src/materials/SpriteMaterial.tests';
 
 
-// //src/math
+//src/math
 import './src/math/Box2.tests';
 import './src/math/Box3.tests';
 import './src/math/Color.tests';
@@ -205,14 +205,14 @@ import './src/math/Vector2.tests';
 import './src/math/Vector3.tests';
 import './src/math/Vector4.tests';
 
-// //src/math/interpolants
+//src/math/interpolants
 import './src/math/interpolants/CubicInterpolant.tests';
 import './src/math/interpolants/DiscreteInterpolant.tests';
 import './src/math/interpolants/LinearInterpolant.tests';
 import './src/math/interpolants/QuaternionLinearInterpolant.tests';
 
 
-// //src/objects
+//src/objects
 import './src/objects/Bone.tests';
 import './src/objects/Group.tests';
 import './src/objects/Line.tests';
@@ -226,18 +226,18 @@ import './src/objects/SkinnedMesh.tests';
 import './src/objects/Sprite.tests';
 
 
-// //src/renderers
+//src/renderers
 import './src/renderers/WebGLRenderer.tests';
 import './src/renderers/WebGLRenderTarget.tests';
 import './src/renderers/WebGLCubeRenderTarget.tests';
 
-// //src/renderers/shaders
+//src/renderers/shaders
 import './src/renderers/shaders/ShaderChunk.tests';
 import './src/renderers/shaders/ShaderLib.tests';
 import './src/renderers/shaders/UniformsLib.tests';
 import './src/renderers/shaders/UniformsUtils.tests';
 
-// //src/renderers/webgl
+//src/renderers/webgl
 import './src/renderers/webgl/WebGLAttributes.tests';
 import './src/renderers/webgl/WebGLBackground.tests';
 import './src/renderers/webgl/WebGLBufferRenderer.tests';
@@ -261,13 +261,13 @@ import './src/renderers/webgl/WebGLUniforms.tests';
 import './src/renderers/webgl/WebGLUtils.tests';
 
 
-// //src/scenes
+//src/scenes
 import './src/scenes/Fog.tests';
 import './src/scenes/FogExp2.tests';
 import './src/scenes/Scene.tests';
 
 
-// //src/textures
+//src/textures
 import './src/textures/CanvasTexture.tests';
 import './src/textures/CompressedTexture.tests';
 import './src/textures/CubeTexture.tests';
