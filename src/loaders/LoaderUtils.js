@@ -1,12 +1,12 @@
-import { TextDecoder, decodeURIComponent } from "../dom-globals.js";
+import { _window } from "../dom-globals.js";
 
 const LoaderUtils = {
 
 	decodeText: function ( array ) {
 
-		if ( typeof TextDecoder !== 'undefined' ) {
+		if ( typeof _window.TextDecoder !== 'undefined' ) {
 
-			return new TextDecoder().decode( array );
+			return new _window.TextDecoder().decode( array );
 
 		}
 
@@ -26,7 +26,7 @@ const LoaderUtils = {
 
 			// merges multi-byte utf-8 characters.
 
-			return decodeURIComponent( escape( s ) );
+			return _window.decodeURIComponent( escape( s ) );
 
 		} catch ( e ) { // see #16358
 

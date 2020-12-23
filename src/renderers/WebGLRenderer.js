@@ -39,11 +39,11 @@ import { WebGLUtils } from './webgl/WebGLUtils.js';
 import { WebXRManager } from './webxr/WebXRManager.js';
 import { WebGLMaterials } from "./webgl/WebGLMaterials.js";
 
-import { document, CustomEvent } from "../dom-globals.js";
+import { _window } from "../dom-globals.js";
 
 function createCanvasElement() {
 
-	const canvas = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
+	const canvas = _window.document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
 	canvas.style.display = 'block';
 	return canvas;
 
@@ -1989,7 +1989,7 @@ function WebGLRenderer( parameters ) {
 
 	if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 
-		__THREE_DEVTOOLS__.dispatchEvent( new CustomEvent( 'observe', { detail: this } ) ); // eslint-disable-line no-undef
+		__THREE_DEVTOOLS__.dispatchEvent( new _window.CustomEvent( 'observe', { detail: this } ) ); // eslint-disable-line no-undef
 
 	}
 

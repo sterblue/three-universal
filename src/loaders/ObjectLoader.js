@@ -61,7 +61,7 @@ import * as Geometries from '../geometries/Geometries.js';
 import * as Curves from '../extras/curves/Curves.js';
 import { getTypedArray } from '../utils.js';
 
-import { HTMLImageElement } from '../dom-globals.js';
+import { _window } from '../dom-globals.js';
 
 class ObjectLoader extends Loader {
 
@@ -143,7 +143,7 @@ class ObjectLoader extends Loader {
 
 			for ( const uuid in images ) {
 
-				if ( images[ uuid ] instanceof HTMLImageElement ) {
+				if ( images[ uuid ] instanceof _window.HTMLImageElement ) {
 
 					hasImages = true;
 					break;
@@ -651,7 +651,7 @@ class ObjectLoader extends Loader {
 
 						if ( deserializedImage !== null ) {
 
-							if ( deserializedImage instanceof HTMLImageElement ) {
+							if ( deserializedImage instanceof _window.HTMLImageElement ) {
 
 								images[ image.uuid ].push( deserializedImage );
 

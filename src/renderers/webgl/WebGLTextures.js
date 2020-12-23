@@ -1,7 +1,7 @@
 import { LinearFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, RGBFormat, RGBAFormat, DepthFormat, DepthStencilFormat, UnsignedShortType, UnsignedIntType, UnsignedInt248Type, FloatType, HalfFloatType, MirroredRepeatWrapping, ClampToEdgeWrapping, RepeatWrapping } from '../../constants.js';
 import { MathUtils } from '../../math/MathUtils.js';
 
-import { document, HTMLImageElement, HTMLCanvasElement, ImageBitmap } from "../../dom-globals.js";
+import { _window } from "../../dom-globals.js";
 
 function WebGLTextures( _gl, extensions, state, properties, capabilities, utils, info ) {
 
@@ -59,9 +59,9 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 			// only perform resize for certain image types
 
-			if ( ( typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement ) ||
-				( typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement ) ||
-				( typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap ) ) {
+			if ( ( typeof _window.HTMLImageElement !== 'undefined' && image instanceof _window.HTMLImageElement ) ||
+				( typeof _window.HTMLCanvasElement !== 'undefined' && image instanceof _window.HTMLCanvasElement ) ||
+				( typeof _window.ImageBitmap !== 'undefined' && image instanceof _window.ImageBitmap ) ) {
 
 				const floor = needsPowerOfTwo ? MathUtils.floorPowerOfTwo : Math.floor;
 

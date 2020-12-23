@@ -1,6 +1,6 @@
 import { Object3D } from '../core/Object3D.js';
 
-import { CustomEvent } from '../dom-globals.js';
+import { _window } from '../dom-globals.js';
 
 class Scene extends Object3D {
 
@@ -22,7 +22,7 @@ class Scene extends Object3D {
 
 		if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 
-			__THREE_DEVTOOLS__.dispatchEvent( new CustomEvent( 'observe', { detail: this } ) ); // eslint-disable-line no-undef
+			__THREE_DEVTOOLS__.dispatchEvent( new _window.CustomEvent( 'observe', { detail: this } ) ); // eslint-disable-line no-undef
 
 		}
 

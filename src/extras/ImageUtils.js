@@ -1,4 +1,4 @@
-import { document, HTMLCanvasElement } from "../dom-globals.js";
+import { _window } from "../dom-globals.js";
 
 let _canvas;
 
@@ -12,7 +12,7 @@ const ImageUtils = {
 
 		}
 
-		if ( typeof HTMLCanvasElement == 'undefined' ) {
+		if ( typeof _window.HTMLCanvasElement == 'undefined' ) {
 
 			return image.src;
 
@@ -20,13 +20,13 @@ const ImageUtils = {
 
 		let canvas;
 
-		if ( image instanceof HTMLCanvasElement ) {
+		if ( image instanceof _window.HTMLCanvasElement ) {
 
 			canvas = image;
 
 		} else {
 
-			if ( _canvas === undefined ) _canvas = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
+			if ( _canvas === undefined ) _canvas = _window.document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
 
 			_canvas.width = image.width;
 			_canvas.height = image.height;

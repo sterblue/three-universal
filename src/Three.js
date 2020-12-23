@@ -1,5 +1,5 @@
 import { REVISION } from './constants.js';
-import { CustomEvent } from './dom-globals.js';
+import { _window } from './dom-globals.js';
 
 export { WebGLMultisampleRenderTarget } from './renderers/WebGLMultisampleRenderTarget.js';
 export { WebGLCubeRenderTarget } from './renderers/WebGLCubeRenderTarget.js';
@@ -46,7 +46,7 @@ export { MaterialLoader } from './loaders/MaterialLoader.js';
 export { BufferGeometryLoader } from './loaders/BufferGeometryLoader.js';
 export { DefaultLoadingManager, LoadingManager } from './loaders/LoadingManager.js';
 export { ImageLoader } from './loaders/ImageLoader.js';
-export { ImageBitmapLoader } from './loaders/ImageBitmapLoader.js';
+export {  _window.ImageBitmapLoader } from './loaders/ImageBitmapLoader.js';
 export { FontLoader } from './loaders/FontLoader.js';
 export { FileLoader } from './loaders/FileLoader.js';
 export { Loader } from './loaders/Loader.js';
@@ -161,7 +161,7 @@ export * from "./dom-globals.js";
 if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 
 	/* eslint-disable no-undef */
-	__THREE_DEVTOOLS__.dispatchEvent( new CustomEvent( 'register', { detail: {
+	__THREE_DEVTOOLS__.dispatchEvent( new _window.CustomEvent( 'register', { detail: {
 		revision: REVISION,
 	} } ) );
 	/* eslint-enable no-undef */

@@ -1,7 +1,7 @@
 import { Cache } from './Cache.js';
 import { Loader } from './Loader.js';
 
-import { Blob, atob, DOMParser, XMLHttpRequest, decodeURIComponent } from "../dom-globals.js";
+import { _window } from "../dom-globals.js";
 
 const loading = {};
 
@@ -64,16 +64,16 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 		const dataUriRegexResult = url.match( dataUriRegex );
 		let request;
 
-		// Safari can not handle Data URIs through XMLHttpRequest so process manually
+		// Safari can not handle Data URIs through _window.XMLHttpRequest so process manually
 		if ( dataUriRegexResult ) {
 
 			const mimeType = dataUriRegexResult[ 1 ];
 			const isBase64 = !! dataUriRegexResult[ 2 ];
 
 			let data = dataUriRegexResult[ 3 ];
-			data = decodeURIComponent( data );
+			data = _window.decodeURIComponent( data );
 
-			if ( isBase64 ) data = atob( data );
+			if ( isBase64 ) data = _window.atob( data );
 
 			try {
 
@@ -95,7 +95,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 						if ( responseType === 'blob' ) {
 
-							response = new Blob( [ view.buffer ], { type: mimeType } );
+							response = new _window.Blob( [ view.buffer ], { type: mimeType } );
 
 						} else {
 
@@ -107,7 +107,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 					case 'document':
 
-						const parser = new DOMParser();
+						const parser = new _window.DOMParser();
 						response = parser.parseFromString( data, mimeType );
 
 						break;
@@ -126,7 +126,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 				}
 
-				// Wait for next browser tick like standard XMLHttpRequest event dispatching does
+				// Wait for next browser tick like standard _window.XMLHttpRequest event dispatching does
 				setTimeout( function () {
 
 					if ( onLoad ) onLoad( response );
@@ -137,7 +137,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 			} catch ( error ) {
 
-				// Wait for next browser tick like standard XMLHttpRequest event dispatching does
+				// Wait for next browser tick like standard _window.XMLHttpRequest event dispatching does
 				setTimeout( function () {
 
 					if ( onError ) onError( error );
@@ -163,7 +163,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 			} );
 
-			request = new XMLHttpRequest();
+			request = new _window.XMLHttpRequest();
 
 			request.open( 'GET', url, true );
 

@@ -1,7 +1,7 @@
 import { Cache } from './Cache.js';
 import { Loader } from './Loader.js';
 
-import { document } from "../dom-globals.js";
+import { _window } from "../dom-globals.js";
 
 function ImageLoader( manager ) {
 
@@ -39,7 +39,7 @@ ImageLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 		}
 
-		const image = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'img' );
+		const image =  _window.document.createElementNS( 'http://www.w3.org/1999/xhtml', 'img' );
 
 		function onImageLoad() {
 

@@ -14,7 +14,7 @@ import { MathUtils } from '../math/MathUtils.js';
 import { Vector2 } from '../math/Vector2.js';
 import { Matrix3 } from '../math/Matrix3.js';
 import { ImageUtils } from '../extras/ImageUtils.js';
-import { HTMLImageElement, HTMLCanvasElement, ImageBitmap } from '../dom-globals.js';
+import { _window } from '../dom-globals.js';
 
 let textureId = 0;
 
@@ -339,9 +339,9 @@ Object.defineProperty( Texture.prototype, "needsUpdate", {
 
 function serializeImage( image ) {
 
-	if ( ( typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement ) ||
-		( typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement ) ||
-		( typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap ) ) {
+	if ( ( typeof _window.HTMLImageElement !== 'undefined' && image instanceof _window.HTMLImageElement ) ||
+		( typeof _window.HTMLCanvasElement !== 'undefined' && image instanceof _window.HTMLCanvasElement ) ||
+		( typeof _window.ImageBitmap !== 'undefined' && image instanceof _window.ImageBitmap ) ) {
 
 		// default images
 
