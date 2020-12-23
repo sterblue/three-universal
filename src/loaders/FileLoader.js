@@ -64,7 +64,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 		const dataUriRegexResult = url.match( dataUriRegex );
 		let request;
 
-		// Safari can not handle Data URIs through _window.XMLHttpRequest so process manually
+		// Safari can not handle Data URIs through XMLHttpRequest so process manually
 		if ( dataUriRegexResult ) {
 
 			const mimeType = dataUriRegexResult[ 1 ];
@@ -126,7 +126,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 				}
 
-				// Wait for next browser tick like standard _window.XMLHttpRequest event dispatching does
+				// Wait for next browser tick like standard XMLHttpRequest event dispatching does
 				setTimeout( function () {
 
 					if ( onLoad ) onLoad( response );
@@ -137,7 +137,7 @@ FileLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 			} catch ( error ) {
 
-				// Wait for next browser tick like standard _window.XMLHttpRequest event dispatching does
+				// Wait for next browser tick like standard XMLHttpRequest event dispatching does
 				setTimeout( function () {
 
 					if ( onError ) onError( error );

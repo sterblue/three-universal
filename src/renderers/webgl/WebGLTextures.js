@@ -37,7 +37,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		return useOffscreenCanvas ?
 			new OffscreenCanvas( width, height ) :
-			document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
+			_window.document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
 
 	}
 

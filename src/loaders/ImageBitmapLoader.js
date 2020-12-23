@@ -1,9 +1,11 @@
 import { Cache } from './Cache.js';
 import { Loader } from './Loader.js';
 
+import { _window } from '../dom-globals.js';
+
 function ImageBitmapLoader( manager ) {
 
-	if ( typeof createImageBitmap === 'undefined' ) {
+	if ( typeof _window.createImageBitmap === 'undefined' ) {
 
 		console.warn( 'THREE.ImageBitmapLoader: createImageBitmap() not supported.' );
 
@@ -72,7 +74,7 @@ ImageBitmapLoader.prototype = Object.assign( Object.create( Loader.prototype ), 
 
 		} ).then( function ( blob ) {
 
-			return createImageBitmap( blob, scope.options );
+			return _window.createImageBitmap( blob, scope.options );
 
 		} ).then( function ( imageBitmap ) {
 
