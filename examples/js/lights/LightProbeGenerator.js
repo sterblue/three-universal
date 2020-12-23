@@ -23,7 +23,7 @@ THREE.LightProbeGenerator = {
 			var width = image.width;
 			var height = image.height;
 
-			var canvas = THREE.document.createElement( 'canvas' );
+			var canvas = THREE._window.document.createElement( 'canvas' );
 
 			canvas.width = width;
 			canvas.height = height;

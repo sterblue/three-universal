@@ -68,7 +68,7 @@ THREE.KMZLoader.prototype = Object.assign( Object.create( THREE.Loader.prototype
 
 				console.log( 'Loading', url );
 
-				var blob = new THREE.Blob( [ image.asArrayBuffer() ], { type: 'application/octet-stream' } );
+				var blob = new THREE._window.Blob( [ image.asArrayBuffer() ], { type: 'application/octet-stream' } );
 				return URL.createObjectURL( blob );
 
 			}
@@ -83,7 +83,7 @@ THREE.KMZLoader.prototype = Object.assign( Object.create( THREE.Loader.prototype
 
 		if ( zip.files[ 'doc.kml' ] ) {
 
-			var xml = new THREE.DOMParser().parseFromString( zip.files[ 'doc.kml' ].asText(), 'application/xml' );
+			var xml = new THREE._window.DOMParser().parseFromString( zip.files[ 'doc.kml' ].asText(), 'application/xml' );
 
 			var model = xml.querySelector( 'Placemark Model Link href' );
 

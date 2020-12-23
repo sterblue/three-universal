@@ -291,7 +291,7 @@ THREE.FBXLoader = ( function () {
 			} else { // Binary Format
 
 				var array = new Uint8Array( content );
-				return THREE.URL.createObjectURL( new THREE.Blob( [ array ], { type: type } ) );
+				return THREE.URL.createObjectURL( new THREE._window.Blob( [ array ], { type: type } ) );
 
 			}
 

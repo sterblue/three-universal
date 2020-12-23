@@ -30,10 +30,10 @@ THREE.AsciiEffect = function ( renderer, charSet, options ) {
 
 	var width, height;
 
-	var domElement = THREE.document.createElement( 'div' );
+	var domElement = THREE._window.document.createElement( 'div' );
 	domElement.style.cursor = 'default';
 
-	var oAscii = THREE.document.createElement( "table" );
+	var oAscii = THREE._window.document.createElement( "table" );
 	domElement.appendChild( oAscii );
 
 	var iWidth, iHeight;
@@ -115,7 +115,7 @@ THREE.AsciiEffect = function ( renderer, charSet, options ) {
 
 	var oCanvasImg = renderer.domElement;
 
-	var oCanvas = THREE.document.createElement( "canvas" );
+	var oCanvas = THREE._window.document.createElement( "canvas" );
 	if ( ! oCanvas.getContext ) {
 
 		return;

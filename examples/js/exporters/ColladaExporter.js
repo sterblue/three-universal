@@ -80,7 +80,7 @@ THREE.ColladaExporter.prototype = {
 		// Convert an image into a png format for saving
 		function base64ToBuffer( str ) {
 
-			var b = THREE.atob( str );
+			var b = THREE._window.atob( str );
 			var buf = new Uint8Array( b.length );
 
 			for ( var i = 0, l = buf.length; i < l; i ++ ) {
@@ -96,7 +96,7 @@ THREE.ColladaExporter.prototype = {
 		var canvas, ctx;
 		function imageToData( image, ext ) {
 
-			canvas = canvas || THREE.document.createElement( 'canvas' );
+			canvas = canvas || THREE._window.document.createElement( 'canvas' );
 			ctx = ctx || canvas.getContext( '2d' );
 
 			canvas.width = image.width;

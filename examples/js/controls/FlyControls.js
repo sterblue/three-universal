@@ -3,7 +3,7 @@ THREE.FlyControls = function ( object, domElement ) {
 	if ( domElement === undefined ) {
 
 		console.warn( 'THREE.FlyControls: The second parameter "domElement" is now mandatory.' );
-		domElement = THREE.document;
+		domElement = THREE._window.document;
 
 	}
 
@@ -108,7 +108,7 @@ THREE.FlyControls = function ( object, domElement ) {
 
 	this.mousedown = function ( event ) {
 
-		if ( this.domElement !== THREE.document ) {
+		if ( this.domElement !== THREE._window.document ) {
 
 			this.domElement.focus();
 
@@ -237,7 +237,7 @@ THREE.FlyControls = function ( object, domElement ) {
 
 	this.getContainerDimensions = function () {
 
-		if ( this.domElement != THREE.document ) {
+		if ( this.domElement != THREE._window.document ) {
 
 			return {
 				size: [ this.domElement.offsetWidth, this.domElement.offsetHeight ],

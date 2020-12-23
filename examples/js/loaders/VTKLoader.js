@@ -885,11 +885,11 @@ THREE.VTKLoader.prototype = Object.assign( Object.create( THREE.Loader.prototype
 			// Get Dom
 			var dom = null;
 
-			if ( THREE.DOMParser ) {
+			if ( THREE._window.DOMParser ) {
 
 				try {
 
-					dom = ( new THREE.DOMParser() ).parseFromString( stringFile, 'text/xml' );
+					dom = ( new THREE._window.DOMParser() ).parseFromString( stringFile, 'text/xml' );
 
 				} catch ( e ) {
 

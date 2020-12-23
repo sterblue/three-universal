@@ -3854,7 +3854,7 @@ THREE.ColladaLoader.prototype = Object.assign( Object.create( THREE.Loader.proto
 
 		}
 
-		var xml = new THREE.DOMParser().parseFromString( text, 'application/xml' );
+		var xml = new THREE._window.DOMParser().parseFromString( text, 'application/xml' );
 
 		var collada = getElementsByTagName( xml, 'COLLADA' )[ 0 ];
 

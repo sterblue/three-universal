@@ -4,7 +4,7 @@ THREE.WEBGL = {
 
 		try {
 
-			var canvas = THREE.document.createElement( 'canvas' );
+			var canvas = THREE._window.document.createElement( 'canvas' );
 			return !! ( THREE.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) ) );
 
 		} catch ( e ) {
@@ -19,7 +19,7 @@ THREE.WEBGL = {
 
 		try {
 
-			var canvas = THREE.document.createElement( 'canvas' );
+			var canvas = THREE._window.document.createElement( 'canvas' );
 			return !! ( THREE.WebGL2RenderingContext && canvas.getContext( 'webgl2' ) );
 
 		} catch ( e ) {
@@ -56,7 +56,7 @@ THREE.WEBGL = {
 
 		var message = 'Your $0 does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">$1</a>';
 
-		var element = THREE.document.createElement( 'div' );
+		var element = THREE._window.document.createElement( 'div' );
 		element.id = 'webglmessage';
 		element.style.fontFamily = 'monospace';
 		element.style.fontSize = '13px';

@@ -779,7 +779,7 @@ THREE.GLTFExporter.prototype = {
 
 			if ( options.embedImages ) {
 
-				var canvas = cachedCanvas = cachedCanvas || THREE.document.createElement( 'canvas' );
+				var canvas = cachedCanvas = cachedCanvas || THREE._window.document.createElement( 'canvas' );
 
 				canvas.width = Math.min( image.width, options.maxTextureSize );
 				canvas.height = Math.min( image.height, options.maxTextureSize );
@@ -2038,7 +2038,7 @@ THREE.GLTFExporter.prototype = {
 		Promise.all( pending ).then( function () {
 
 			// Merge buffers.
-			var blob = new THREE.Blob( buffers, { type: 'application/octet-stream' } );
+			var blob = new THREE._window.Blob( buffers, { type: 'application/octet-stream' } );
 
 			// Declare extensions.
 			var extensionsUsedList = Object.keys( extensionsUsed );
@@ -2085,7 +2085,7 @@ THREE.GLTFExporter.prototype = {
 						+ binaryChunkPrefix.byteLength + binaryChunk.byteLength;
 					headerView.setUint32( 8, totalByteLength, true );
 
-					var glbBlob = new THREE.Blob( [
+					var glbBlob = new THREE._window.Blob( [
 						header,
 						jsonChunkPrefix,
 						jsonChunk,

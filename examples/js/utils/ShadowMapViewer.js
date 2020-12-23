@@ -64,7 +64,7 @@ THREE.ShadowMapViewer = function ( light ) {
 
 	if ( doRenderLabel ) {
 
-		labelCanvas = THREE.document.createElement( 'canvas' );
+		labelCanvas = THREE._window.document.createElement( 'canvas' );
 
 		var context = labelCanvas.getContext( '2d' );
 		context.font = 'Bold 20px Arial';

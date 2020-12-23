@@ -3,7 +3,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	if ( domElement === undefined ) {
 
 		console.warn( 'THREE.FirstPersonControls: The second parameter "domElement" is now mandatory.' );
-		domElement = THREE.document;
+		domElement = THREE._window.document;
 
 	}
 
@@ -59,7 +59,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	//
 
-	if ( this.domElement !== THREE.document ) {
+	if ( this.domElement !== THREE._window.document ) {
 
 		this.domElement.setAttribute( 'tabindex', - 1 );
 
@@ -69,7 +69,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.handleResize = function () {
 
-		if ( this.domElement === THREE.document ) {
+		if ( this.domElement === THREE._window.document ) {
 
 			this.viewHalfX = THREE.innerWidth / 2;
 			this.viewHalfY = THREE.innerHeight / 2;
@@ -85,7 +85,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.onMouseDown = function ( event ) {
 
-		if ( this.domElement !== THREE.document ) {
+		if ( this.domElement !== THREE._window.document ) {
 
 			this.domElement.focus();
 
@@ -131,7 +131,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.onMouseMove = function ( event ) {
 
-		if ( this.domElement === THREE.document ) {
+		if ( this.domElement === THREE._window.document ) {
 
 			this.mouseX = event.pageX - this.viewHalfX;
 			this.mouseY = event.pageY - this.viewHalfY;

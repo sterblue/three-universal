@@ -3,7 +3,7 @@ THREE.PointerLockControls = function ( camera, domElement ) {
 	if ( domElement === undefined ) {
 
 		console.warn( 'THREE.PointerLockControls: The second parameter "domElement" is now mandatory.' );
-		domElement = THREE.document.body;
+		domElement = THREE._window.document.body;
 
 	}
 
