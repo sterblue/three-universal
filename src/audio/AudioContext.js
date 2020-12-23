@@ -1,4 +1,4 @@
-import { _window } from '../dom-globals';
+import { _window } from '../window.js';
 
 let _context;
 
