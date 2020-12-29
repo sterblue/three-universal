@@ -113,9 +113,7 @@ Join us at [Sterblue Labs](https://labs.sterblue.com/)!
 
 When there is a new release of three at https://www.npmjs.com/package/three :
 
-  - Copy the content of the `files` array in `utils/modularize.js` from three codebase to this package's (This could be avoided if we actually forked three JS instead of going for the current solution, see https://github.com/mrdoob/three.js/issues/20824#issuecomment-751663679 )
-  - Update the version of the `three` dependency in this `package.json`
-  - Update the version this package in this `package.json`
+  -  Rebase the release on the fork
   - `npm install && npm run build && npm run test-e2e-node`
   - `npm publish`
 
