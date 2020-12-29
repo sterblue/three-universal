@@ -1,4 +1,4 @@
-import { GLTFLoader } from "../../../examples/node/loaders/GLTFLoader";
+import { GLTFLoader } from "../../../examples/node-jsm/loaders/GLTFLoader";
 
 export default function main() {
 

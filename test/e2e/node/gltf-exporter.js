@@ -1,4 +1,4 @@
-import { GLTFExporter } from "../../../examples/node/exporters/GLTFExporter";
+import { GLTFExporter } from "../../../examples/node-jsm/exporters/GLTFExporter";
 import { BoxBufferGeometry, MeshBasicMaterial, Mesh, Scene, TextureLoader } from "../../../build/three.module.node";
 import { writeJson } from "fs-extra";
 

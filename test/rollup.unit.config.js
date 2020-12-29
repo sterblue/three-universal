@@ -1,5 +1,5 @@
 import inject from '@rollup/plugin-inject';
-import * as Window from '../../src/window.js';
+import * as Window from '../src/window.js';
 import path from "path";
 
 try {

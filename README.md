@@ -1,91 +1,129 @@
-three.js
-========
+# three-universal
 
-[![NPM Package][npm]][npm-url]
-[![Build Size][build-size]][build-size-url]
-[![NPM Downloads][npm-downloads]][npmtrends-url]
-[![Dev Dependencies][dev-dependencies]][dev-dependencies-url]
-[![Language Grade][lgtm]][lgtm-url]
+Versions of [Three.js](https://github.com/mrdoob/three.js) compatible with Browsers, NodeJS, React Native Threads, etc by using [JSDOM](https://github.com/jsdom/jsdom) when needed.
 
-#### JavaScript 3D library ####
+This package provides the original builds and examples of three.js along with NodeJS specific builds and NodeJS specific examples.
 
-The aim of the project is to create an easy to use, lightweight, 3D library with a default WebGL renderer. The library also provides Canvas 2D, SVG and CSS3D renderers in the examples.
+## Example
 
-[Examples](http://threejs.org/examples/) &mdash;
-[Documentation](http://threejs.org/docs/) &mdash;
-[Wiki](https://github.com/mrdoob/three.js/wiki) &mdash;
-[Migrating](https://github.com/mrdoob/three.js/wiki/Migration-Guide) &mdash;
-[Questions](http://stackoverflow.com/questions/tagged/three.js) &mdash;
-[Forum](https://discourse.threejs.org/) &mdash;
-[Slack](https://join.slack.com/t/threejs/shared_invite/enQtMzYxMzczODM2OTgxLTQ1YmY4YTQxOTFjNDAzYmQ4NjU2YzRhNzliY2RiNDEyYjU2MjhhODgyYWQ5Y2MyZTU3MWNkOGVmOGRhOTQzYTk) &mdash;
-[Discord](https://discordapp.com/invite/HF4UdyF)
+Let's write a textured scene to a gltf file in the browser and using NodeJS.
 
-### Usage ###
+### In browsers
 
-This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
+It's totally equivalent to using the standard "three" library.
 
 ```javascript
-import * as THREE from './js/three.module.js';
+import { GLTFExporter } from "three-universal/examples/jsm/exporters/GLTFExporter";
+import { BoxBufferGeometry, MeshBasicMaterial, Mesh, Scene, TextureLoader } from "three-universal/build/three.module";
 
-let camera, scene, renderer;
-let geometry, material, mesh;
+const exporter = new GLTFExporter();
+const textureLoader = new TextureLoader();
+textureLoader.load( `https://url-of-my-image.jpg`, function ( texture ) {
 
-init();
-animate();
+    const scene = new Scene();
+    const box = new Mesh(
+        new BoxBufferGeometry(),
+        new MeshBasicMaterial( { map: texture } )
+    );
+    box.name = "box-test";
+    scene.add( box );
 
-function init() {
+    exporter.parse( scene, function ( gltf ) {
 
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
-	camera.position.z = 1;
+        downloadJSON(gltf);
 
-	scene = new THREE.Scene();
+    } );
 
-	geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-	material = new THREE.MeshNormalMaterial();
+}, undefined, function ( error ) {
 
-	mesh = new THREE.Mesh( geometry, material );
-	scene.add( mesh );
+    throw error;
 
-	renderer = new THREE.WebGLRenderer( { antialias: true } );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	document.body.appendChild( renderer.domElement );
-
-}
-
-function animate() {
-
-	requestAnimationFrame( animate );
-
-	mesh.rotation.x += 0.01;
-	mesh.rotation.y += 0.02;
-
-	renderer.render( scene, camera );
-
-}
+} );
 ```
 
-If everything went well, you should see [this](https://jsfiddle.net/ruc3h17j/).
+### On NodeJS
 
-### Cloning this repository ###
+Here we can use the `file` protocol to load a local file, and fs-extra's `writeJson` to write the scene locally. We could also use a regular link
+to load a remote image.
 
-Cloning the repo with all its history results in a ~2GB download. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
+```javascript
+import { GLTFExporter } from "three-universal/examples/node-jsm/exporters/GLTFExporter";
+import { BoxBufferGeometry, MeshBasicMaterial, Mesh, Scene, TextureLoader } from "three-universal/build/three.module.node";
+import { writeJson } from "fs-extra";
 
-```sh
-git clone --depth=1 https://github.com/mrdoob/three.js.git
+const exporter = new GLTFExporter();
+const textureLoader = new TextureLoader();
+textureLoader.load( `file://path-to-my-image.jpg`, function ( texture ) {
+
+    const scene = new Scene();
+    const box = new Mesh(
+        new BoxBufferGeometry(),
+        new MeshBasicMaterial( { map: texture } )
+    );
+    box.name = "box-test";
+    scene.add( box );
+
+    exporter.parse( scene, function ( gltf ) {
+
+        const path = `path-to-my-local-file.gltf`;
+        writeJson( path, gltf, {}, function ( data ) {
+            console.log("Scene written!");
+        } );
+
+    } );
+
+}, undefined, function ( error ) {
+
+    throw error;
+
+} );
 ```
 
-### Change log ###
+## Unsupported DOM interfaces
 
-[Releases](https://github.com/mrdoob/three.js/releases)
+So far, JSDOM doesn't support every object of the native DOM API. If one of the utils you intend to 
+run transitively uses one object in the list below, you might encounter non-three.js related issues 
+**when running on NodeJS only**.
 
+List of currently unsupported DOM objects used by Three.js: 
+<!-- listDomAutoGenerated --> 
+-   ActiveXObject
+-   AudioContext
+-   DeviceOrientationEvent
+-   ImageBitmap
+-   TextDecoder
+-   TextEncoder
+-   WebGL2RenderingContext
+-   WebGLRenderingContext
+-   XRHand
+-   createImageBitmap
+-   orientation
+-   webkitAudioContext
+<!-- listDomAutoGenerated -->
 
-[npm]: https://img.shields.io/npm/v/three
-[npm-url]: https://www.npmjs.com/package/three
-[build-size]: https://badgen.net/bundlephobia/minzip/three
-[build-size-url]: https://bundlephobia.com/result?p=three
-[npm-downloads]: https://img.shields.io/npm/dw/three
-[npmtrends-url]: https://www.npmtrends.com/three
-[dev-dependencies]: https://img.shields.io/david/dev/mrdoob/three.js
-[dev-dependencies-url]: https://david-dm.org/mrdoob/three.js#info=devDependencies
-[lgtm]: https://img.shields.io/lgtm/alerts/github/mrdoob/three.js
-[lgtm-url]: https://lgtm.com/projects/g/mrdoob/three.js/
+## Sponsors
+
+This development is open-sourced by [Sterblue](https://www.sterblue.com/). 
+
+Join us at [Sterblue Labs](https://labs.sterblue.com/)!
+
+![Sterblue Labs](https://labs.sterblue.com/logos/Sterblue%20Labs-400w.png)!
+
+## Development
+
+When there is a new release of three at https://www.npmjs.com/package/three :
+
+  - Copy the content of the `files` array in `utils/modularize.js` from three codebase to this package's (This could be avoided if we actually forked three JS instead of going for the current solution, see https://github.com/mrdoob/three.js/issues/20824#issuecomment-751663679 )
+  - Update the version of the `three` dependency in this `package.json`
+  - Update the version this package in this `package.json`
+  - `npm install && npm run build && npm run test-e2e-node`
+  - `npm publish`
+
+## Test
+
+Tests can be done in only one environment, NodeJS. For in-Browser tests, please refer to the original repository.
+First run `npm install` in `./test` to install the required testing dependencies.
+
+To run unit tests on NodeJS: `npm run test-unit-node`
+
+To run end to end tests on NodeJS: `npm run test-e2e-node`

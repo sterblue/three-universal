@@ -1,6 +1,6 @@
 try {
 
-	require( './window.js' );
+	require( '../build/window.js' );
 
 } catch {
 
@@ -9,14 +9,16 @@ try {
 
 }
 
-const _window = require( './window.js' );
+const _window = require( '../build/window.js' );
 var fs = require( 'fs' );
+const fsExtra = require( 'fs-extra' );
 THREE = require( '../build/three.js' );
 const namesGlobal = Object.keys( _window ).toString().split( "," );
 
 var srcFolder = __dirname + '/../examples/js/';
 var dstFolder = __dirname + '/../examples/jsm/';
-var dstFolderNode = __dirname + '/../examples/node/';
+var dstFolderNode = __dirname + '/../examples/node-jsm/';
+var dstFolderNodeCommonJs = __dirname + '/../examples/node-js/';
 
 var files = [
 	{ path: 'animation/AnimationClipCreator.js', dependencies: [], ignoreList: [] },
@@ -49,7 +51,7 @@ var files = [
 
 	{ path: 'exporters/ColladaExporter.js', dependencies: [], ignoreList: [] },
 	{ path: 'exporters/DRACOExporter.js', dependencies: [], ignoreList: [ 'Geometry' ] },
-	{ path: 'exporters/GLTFExporter.js', dependencies: [], ignoreList: [ 'AnimationClip', 'Camera', 'Geometry', 'Material', 'Mesh', 'Object3D', 'Scenes', 'ShaderMaterial', 'Matrix4' ] },
+	{ path: 'exporters/GLTFExporter.js', dependencies: [], ignoreList: [ 'AnimationClip', 'Camera', 'Geometry', 'Material', 'Mesh', 'Object3D', 'Scenes', 'ShaderMaterial' ] },
 	{ path: 'exporters/MMDExporter.js', dependencies: [ { name: 'MMDParser', path: 'libs/mmdparser.module.js' } ], ignoreList: [] },
 	{ path: 'exporters/OBJExporter.js', dependencies: [], ignoreList: [] },
 	{ path: 'exporters/PLYExporter.js', dependencies: [], ignoreList: [] },
@@ -234,7 +236,6 @@ var files = [
 	{ path: 'utils/SceneUtils.js', dependencies: [], ignoreList: [] },
 	{ path: 'utils/ShadowMapViewer.js', dependencies: [ { name: 'UnpackDepthRGBAShader', path: 'shaders/UnpackDepthRGBAShader.js' } ], ignoreList: [] },
 	{ path: 'utils/SkeletonUtils.js', dependencies: [], ignoreList: [] },
-	{ path: 'utils/TypedArrayUtils.js', dependencies: [], ignoreList: [] },
 	{ path: 'utils/UVsDebug.js', dependencies: [], ignoreList: [ 'SphereBufferGeometry' ] },
 
 	{ path: 'WebGL.js', dependencies: [], ignoreList: [] },
@@ -243,14 +244,17 @@ var files = [
 for ( var i = 0; i < files.length; i ++ ) {
 
 	var file = files[ i ];
+	// Make browser jsm from browser js
 	convert( file.path, file.dependencies, file.ignoreList, false );
 
 	if ( file.nodeVersion ) {
 
+		// Make node jsm from browser js
 		convert( file.nodeVersion, file.dependencies, file.ignoreList, true );
 
 	} else {
 
+		// Make node jsm from browser js
 		convert( file.path, file.dependencies, file.ignoreList, true );
 
 	}
@@ -325,6 +329,7 @@ function convert( path, exampleDependencies, ignoreList, isNode ) {
 		.toString();
 
 	var imports = [];
+	var importsCommonJs = [];
 
 	// compute path prefix for imports/exports
 
@@ -345,12 +350,14 @@ function convert( path, exampleDependencies, ignoreList, isNode ) {
 			if ( domGlobals ) {
 
 				imports.push( `import {${keys + "," + domGlobals}\n} from "${pathPrefix}../../build/three.module.node.js";` );
+				importsCommonJs.push( `const {${keys + "," + domGlobals}\n} = require( "${pathPrefix}../../build/three.node.js" );` );
 
 				// 	imports.push( `import {${domGlobals}\n} from "${pathPrefix}../../src/window.js";` );
 
 			} else {
 
 				imports.push( `import {${keys}\n} from "${pathPrefix}../../build/three.module.node.js";` );
+				importsCommonJs.push( `const {${keys}\n} = require( "${pathPrefix}../../build/three.node.js" );` );
 
 			}
 
@@ -367,24 +374,31 @@ function convert( path, exampleDependencies, ignoreList, isNode ) {
 	for ( var dependency of exampleDependencies ) {
 
 		imports.push( `import { ${dependency.name} } from "${pathPrefix}${dependency.path}";` );
+		importsCommonJs.push( `const { ${dependency.name} } = require( "${pathPrefix}${dependency.path}" );` );
 
 	}
 
 	var output = '';
+	var outputCommonJs = '';
 
 	if ( imports.length > 0 ) output += imports.join( '\n' ) + '\n\n';
+	if ( importsCommonJs.length > 0 ) outputCommonJs += importsCommonJs.join( '\n' ) + '\n\n';
 
 	output += contents + `\nexport { ${classNames.join( ', ' )} };\n`;
+	outputCommonJs += contents + `\nmodule.exports = { ${classNames.join( ', ' )} };\n`;
 
-	// console.log( output );
 	if ( keys ) {
 
 		if ( isNode ) {
 
+			fsExtra.ensureFileSync( dstFolderNode + path );
 			fs.writeFileSync( dstFolderNode + path, output, 'utf-8' );
+			fsExtra.ensureFileSync( dstFolderNodeCommonJs + path );
+			fs.writeFileSync( dstFolderNodeCommonJs + path, outputCommonJs, 'utf-8' );
 
 		} else {
 
+			fsExtra.ensureFileSync( dstFolder + path );
 			fs.writeFileSync( dstFolder + path, output, 'utf-8' );
 
 		}

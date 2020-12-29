@@ -284,6 +284,29 @@ function header() {
 
 }
 
+function addWindowGlobals() {
+
+	return {
+
+		transform( code, id ) {
+
+			if ( id.endsWith( "/Three.js" ) ) {
+
+				return `import {${namesGlobal.filter( value => ! threeExports.includes( value ) ).map( value => " " + value ).toString()} } from "./window.js";\n${code}\nexport {${namesGlobal.filter( value => ! threeExports.includes( value ) ).map( value => " " + value ).toString()} };`;
+
+			} else {
+
+				return null;
+
+			}
+
+
+		}
+
+	};
+
+}
+
 function polyfills() {
 
 	return {
@@ -339,7 +362,7 @@ export default [
 			{
 				format: 'umd',
 				name: 'THREE',
-				file: 'utils/window.js'
+				file: 'build/window.js'
 			}
 		]
 	},
@@ -410,6 +433,7 @@ export default [
 	{
 		input: 'src/Three.js',
 		plugins: [
+			addWindowGlobals(),
 			inject( configInject ),
 			addons(),
 			glconstants(),
@@ -420,7 +444,33 @@ export default [
 			{
 				format: 'esm',
 				file: 'build/three.module.node.js',
-				outro: "export {" + namesGlobal.filter( value => ! threeExports.includes( value ) ).map( value => " " + value ).toString() + " };"
+			}
+		]
+	},
+	{
+		input: 'src/Three.js',
+		plugins: [
+			addWindowGlobals(),
+			inject( configInject ),
+			polyfills(),
+			addons(),
+			glconstants(),
+			glsl(),
+			babel( {
+				babelHelpers: 'bundled',
+				compact: false,
+				babelrc: false,
+				...babelrc
+			} ),
+			babelCleanup(),
+			header()
+		],
+		output: [
+			{
+				format: 'umd',
+				name: 'THREE',
+				file: 'build/three.node.js',
+				indent: '\t'
 			}
 		]
 	}

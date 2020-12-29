@@ -1,20 +1,29 @@
 {
-  "name": "three",
+  "name": "three-universal",
   "version": "0.123.0",
   "description": "JavaScript 3D library",
   "main": "build/three.js",
-  "module": "build/three.module.js",
+  "module": "build/three.module.node.js",
   "types": "src/Three.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mrdoob/three.js"
+    "url": "https://github.com/sterblue/three-universal"
   },
   "files": [
     "build/three.js",
     "build/three.min.js",
     "build/three.module.js",
+    "build/three.module.node.js",
+    "build/three.node.js",
+    "build/three.d.ts",
+    "build/three.min.d.ts",
+    "build/three.module.d.ts",
+    "build/three.module.node.d.ts",
+    "build/three.node.d.ts",
     "examples/js",
     "examples/jsm",
+    "examples/node-js",
+    "examples/node-jsm",
     "examples/fonts",
     "LICENSE",
     "package.json",
@@ -56,10 +65,13 @@
   "scripts": {
     "start": "npm run dev",
     "test": "npm run test-lint && npm run test-unit",
-    "build": "rollup -c utils/build/rollup.config.js",
-    "test-e2e-node": "rollup -c test/rollup.e2e.config.js && node test/e2e/node/index.cjs.js",
+    "build": "npm run build:three && npm run build:examples && npm run update:readme",
+    "build:three": "rollup -c utils/build/rollup.config.js",
+    "build:examples": "node utils/modularize.js",
     "dev": "concurrently --names \"ROLLUP,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c utils/build/rollup.config.js -w -m inline\" \"servez -p 8080\"",
     "lint-fix": "eslint src --ext js --ext ts --fix && eslint examples/js/ --ext js --ext ts --ignore-pattern libs --fix",
+    "update:readme": "node utils/update-readme.js",
+    "test-e2e-node": "rollup -c test/rollup.e2e.config.js && node test/e2e/node/index.cjs.js",
     "lint-docs": "eslint docs --ext html",
     "lint-examples": "eslint examples/jsm --ext js --ext ts --ignore-pattern libs && tsc -p utils/build/tsconfig-examples.lint.json",
     "test-lint": "eslint src --ext js --ext ts && tsc -p utils/build/tsconfig.lint.json",
@@ -84,10 +96,10 @@
     "svg",
     "html5"
   ],
-  "author": "mrdoob",
+  "author": "sterblue",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrdoob/three.js/issues"
+    "url": "https://github.com/sterblue/three-universal/issues"
   },
   "homepage": "https://threejs.org/",
   "devDependencies": {
@@ -129,7 +141,14 @@
       "README.md",
       "build/three.js",
       "build/three.min.js",
-      "build/three.module.js"
+      "build/three.module.js",
+      "build/three.module.node.js",
+      "build/three.node.js",
+      "build/three.d.ts",
+      "build/three.min.d.ts",
+      "build/three.module.d.ts",
+      "build/three.module.node.d.ts",
+      "build/three.node.d.ts"
     ],
     "directories": {}
   }
