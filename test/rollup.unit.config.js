@@ -1,3 +1,7 @@
+import inject from '@rollup/plugin-inject';
+import * as Window from '../src/window.js';
+import path from "path";
+
 try {
 
 	require( 'qunit' );
@@ -8,6 +12,20 @@ try {
 	process.exit( 1 );
 
 }
+
+const namesGlobal = Object.keys( Window ).toString().split( "," );
+
+
+const configInject = namesGlobal.reduce(
+	( currentConfig, name ) => {
+
+		currentConfig[ name ] = [ path.resolve( '../src/window.js' ), name ];
+		return currentConfig;
+
+	}, {
+		window: [ path.resolve( '../src/window.js' ), "*" ]
+	}
+);
 
 
 function glsl() {
@@ -66,6 +84,25 @@ export default [
 				format: 'umd',
 				name: 'THREE',
 				file: 'unit/build/three.source.unit.js',
+				intro: 'QUnit.module( "Source", () => {',
+				outro: '} );',
+				indent: '\t',
+			}
+		]
+	},
+	// node source unit conf
+	{
+		input: 'unit/three.source.unit.node.js',
+		plugins: [
+			inject( configInject ),
+			glsl()
+		],
+		// sourceMap: true,
+		output: [
+			{
+				format: 'umd',
+				name: 'THREE',
+				file: 'unit/build/three.source.unit.node.js',
 				intro: 'QUnit.module( "Source", () => {',
 				outro: '} );',
 				indent: '\t',

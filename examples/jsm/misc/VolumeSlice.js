@@ -6,7 +6,7 @@ import {
 	MeshBasicMaterial,
 	PlaneGeometry,
 	Texture
-} from '../../../build/three.module.js';
+} from "../../../build/three.module.js";
 
 /**
  * This class has been made to hold a slice of a volume data

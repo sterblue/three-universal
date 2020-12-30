@@ -1,9 +1,25 @@
+try {
+
+	require( '../build/window.js' );
+
+} catch {
+
+	console.log( '\x1b[31mError! You need to build utils/window.js. Please run `npm run build`\x1b[37m' );
+	process.exit( 1 );
+
+}
+
+const _window = require( '../build/window.js' );
 var fs = require( 'fs' );
 var os = require( 'os' ), EOL = os.EOL;
+const fsExtra = require( 'fs-extra' );
 THREE = require( '../build/three.js' );
+const namesGlobal = Object.keys( _window ).toString().split( "," );
 
 var srcFolder = __dirname + '/../examples/js/';
 var dstFolder = __dirname + '/../examples/jsm/';
+var dstFolderNode = __dirname + '/../examples/node-jsm/';
+var dstFolderNodeCommonJs = __dirname + '/../examples/node-js/';
 
 var files = [
 	{ path: 'animation/AnimationClipCreator.js', dependencies: [], ignoreList: [] },
@@ -228,13 +244,27 @@ var files = [
 for ( var i = 0; i < files.length; i ++ ) {
 
 	var file = files[ i ];
-	convert( file.path, file.dependencies, file.ignoreList );
+	// Make browser jsm from browser js
+	convert( file.path, file.dependencies, file.ignoreList, false );
+
+	if ( file.nodeVersion ) {
+
+		// Make node jsm from browser js
+		convert( file.nodeVersion, file.dependencies, file.ignoreList, true );
+
+	} else {
+
+		// Make node jsm from browser js
+		convert( file.path, file.dependencies, file.ignoreList, true );
+
+	}
+
 
 }
 
 //
 
-function convert( path, exampleDependencies, ignoreList ) {
+function convert( path, exampleDependencies, ignoreList, isNode ) {
 
 	var contents = fs.readFileSync( srcFolder + path, 'utf8' );
 
@@ -299,6 +329,7 @@ function convert( path, exampleDependencies, ignoreList ) {
 		.toString();
 
 	var imports = [];
+	var importsCommonJs = [];
 
 	// compute path prefix for imports/exports
 
@@ -307,7 +338,36 @@ function convert( path, exampleDependencies, ignoreList ) {
 
 	// core imports
 
-	if ( keys ) imports.push( `import {${keys}${EOL}} from '${pathPrefix}../../build/three.module.js';` );
+	if ( keys ) {
+
+		if ( isNode ) {
+
+			const domGlobals = namesGlobal
+				.filter( name => RegExp( `\\s${name}` ).test( contents ) )
+				.map( value => EOL + '\t' + value )
+				.sort()
+				.toString();
+			if ( domGlobals ) {
+
+				imports.push( `import {${keys + "," + domGlobals}${EOL}} from "${pathPrefix}../../build/three.module.node.js";` );
+				importsCommonJs.push( `const {${keys + "," + domGlobals}${EOL}} = require( "${pathPrefix}../../build/three.node.js" );` );
+
+				// 	imports.push( `import {${domGlobals}${EOL}} from "${pathPrefix}../../src/window.js";` );
+
+			} else {
+
+				imports.push( `import {${keys}${EOL}} from "${pathPrefix}../../build/three.module.node.js";` );
+				importsCommonJs.push( `const {${keys}${EOL}} = require( "${pathPrefix}../../build/three.node.js" );` );
+
+			}
+
+		} else {
+
+			imports.push( `import {${keys}${EOL}} from "${pathPrefix}../../build/three.module.js";` );
+
+		}
+
+	}
 
 	// example imports
 
@@ -316,23 +376,42 @@ function convert( path, exampleDependencies, ignoreList ) {
 		if ( dependency.importAll === true ) {
 
 			imports.push( `import * as ${dependency.name} from '${pathPrefix}${dependency.path}';` );
+			importsCommonJs.push( `const ${dependency.name} = require( "${pathPrefix}${dependency.path}" );` );
 
 		} else {
 
 			imports.push( `import { ${dependency.name} } from '${pathPrefix}${dependency.path}';` );
+			importsCommonJs.push( `const { ${dependency.name} } = require( "${pathPrefix}${dependency.path}" );` );
 
 		}
 
 	}
 
 	var output = '';
+	var outputCommonJs = '';
 
 	if ( imports.length > 0 ) output += imports.join( EOL ) + EOL + EOL;
+	if ( importsCommonJs.length > 0 ) outputCommonJs += importsCommonJs.join( EOL ) + EOL + EOL;
 
 	output += contents + `${EOL}export { ${classNames.join( ', ' )} };${EOL}`;
+	outputCommonJs += contents + `${EOL}module.exports = { ${classNames.join( ', ' )} };${EOL}`;
 
-	// console.log( output );
+	if ( keys ) {
 
-	fs.writeFileSync( dstFolder + path, output, 'utf-8' );
+		if ( isNode ) {
+
+			fsExtra.ensureFileSync( dstFolderNode + path );
+			fs.writeFileSync( dstFolderNode + path, output, 'utf-8' );
+			fsExtra.ensureFileSync( dstFolderNodeCommonJs + path );
+			fs.writeFileSync( dstFolderNodeCommonJs + path, outputCommonJs, 'utf-8' );
+
+		} else {
+
+			fsExtra.ensureFileSync( dstFolder + path );
+			fs.writeFileSync( dstFolder + path, output, 'utf-8' );
+
+		}
+
+	}
 
 }

@@ -1,7 +1,7 @@
 import {
 	ShaderMaterial,
 	UniformsUtils
-} from '../../../build/three.module.js';
+} from "../../../build/three.module.js";
 import { Pass } from '../postprocessing/Pass.js';
 import { DotScreenShader } from '../shaders/DotScreenShader.js';
 

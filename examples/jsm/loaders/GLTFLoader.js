@@ -61,7 +61,7 @@ import {
 	Vector3,
 	VectorKeyframeTrack,
 	sRGBEncoding
-} from '../../../build/three.module.js';
+} from "../../../build/three.module.js";
 
 var GLTFLoader = ( function () {
 
@@ -2691,7 +2691,7 @@ var GLTFLoader = ( function () {
 				if ( useFlatShading ) cachedMaterial.flatShading = true;
 				if ( useMorphTargets ) cachedMaterial.morphTargets = true;
 				if ( useMorphNormals ) cachedMaterial.morphNormals = true;
-
+				
 				if ( useVertexTangents ) {
 
 					cachedMaterial.vertexTangents = true;
