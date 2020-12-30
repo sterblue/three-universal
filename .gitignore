@@ -21,3 +21,5 @@ test/unit/build
 
 
 **/node_modules
+test/e2e/node/outputs
+test/e2e/node/index.cjs.js

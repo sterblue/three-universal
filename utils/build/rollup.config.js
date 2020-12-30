@@ -1,5 +1,9 @@
 import babel from "@rollup/plugin-babel";
+import inject from '@rollup/plugin-inject';
 import { terser } from "rollup-plugin-terser";
+import * as Window from '../../src/window.js';
+import * as THREE from '../../src/Three.js';
+import path from "path";
 
 if ( String.prototype.replaceAll === undefined ) {
 
@@ -10,6 +14,18 @@ if ( String.prototype.replaceAll === undefined ) {
 	};
 
 }
+
+const threeExports = Object.keys( THREE ).toString().split( "," );
+const namesGlobal = Object.keys( Window ).toString().split( "," );
+
+const configInject = namesGlobal.reduce(
+	( currentConfig, name ) => {
+
+		currentConfig[ name ] = [ path.resolve( 'src/window.js' ), name ];
+		return currentConfig;
+
+	}, {}
+);
 
 function glconstants() {
 
@@ -268,6 +284,29 @@ function header() {
 
 }
 
+function addWindowGlobals() {
+
+	return {
+
+		transform( code, id ) {
+
+			if ( id.endsWith( "/Three.js" ) ) {
+
+				return `import {${namesGlobal.filter( value => ! threeExports.includes( value ) ).map( value => " " + value ).toString()} } from "./window.js";\n${code}\nexport {${namesGlobal.filter( value => ! threeExports.includes( value ) ).map( value => " " + value ).toString()} };`;
+
+			} else {
+
+				return null;
+
+			}
+
+
+		}
+
+	};
+
+}
+
 function polyfills() {
 
 	return {
@@ -317,6 +356,16 @@ const babelrc = {
 };
 
 export default [
+	{
+		input: 'src/window.js',
+		output: [
+			{
+				format: 'umd',
+				name: 'THREE',
+				file: 'build/window.js'
+			}
+		]
+	},
 	{
 		input: 'src/Three.js',
 		plugins: [
@@ -378,6 +427,50 @@ export default [
 			{
 				format: 'esm',
 				file: 'build/three.module.js'
+			}
+		]
+	},
+	{
+		input: 'src/Three.js',
+		plugins: [
+			addWindowGlobals(),
+			inject( configInject ),
+			addons(),
+			glconstants(),
+			glsl(),
+			header()
+		],
+		output: [
+			{
+				format: 'esm',
+				file: 'build/three.module.node.js',
+			}
+		]
+	},
+	{
+		input: 'src/Three.js',
+		plugins: [
+			addWindowGlobals(),
+			inject( configInject ),
+			polyfills(),
+			addons(),
+			glconstants(),
+			glsl(),
+			babel( {
+				babelHelpers: 'bundled',
+				compact: false,
+				babelrc: false,
+				...babelrc
+			} ),
+			babelCleanup(),
+			header()
+		],
+		output: [
+			{
+				format: 'umd',
+				name: 'THREE',
+				file: 'build/three.node.js',
+				indent: '\t'
 			}
 		]
 	}
