@@ -129,8 +129,8 @@
     "typescript": "^4.1.3"
   },
   "peerDependencies": {
-    "jsdom": "16.4.0",
-    "canvas": "2.5.0"
+    "jsdom": "*",
+    "canvas": "*"
   },
   "peerDependenciesMeta": {
     "jsdom": {
