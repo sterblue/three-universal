@@ -6,9 +6,13 @@ This package provides the original builds and examples of three.js along with No
 
 ## Example
 
-Let's write a textured scene to a gltf file in the browser and using NodeJS.
+
 
 ### In browsers
+
+#### **Write a gltf file**
+
+Let's write a textured scene to a gltf file in the browser and using NodeJS.
 
 It's totally equivalent to using the standard "three" library.
 
@@ -42,6 +46,10 @@ textureLoader.load( `https://url-of-my-image.jpg`, function ( texture ) {
 ```
 
 ### On NodeJS
+
+#### **Write a gltf file**
+
+Let's write a textured scene to a gltf file in the browser and using NodeJS.
 
 Here we can use the `file` protocol to load a local file, and fs-extra's `writeJson` to write the scene locally. We could also use a regular link
 to load a remote image.
@@ -77,6 +85,70 @@ textureLoader.load( `file://path-to-my-image.jpg`, function ( texture ) {
     throw error;
 
 } );
+```
+
+#### **Use a GLTF renderer**
+
+Bellow is an example of how to use `headless-gl` library to leverage `WebGLRenderer` on NodeJs.
+
+```javascript
+import { getOr } from "lodash/fp";
+import gl from "gl";
+import {
+  WebGLRenderer,
+  PCFSoftShadowMap,
+  WebGLRenderTarget,
+  LinearFilter,
+  NearestFilter,
+  RGBAFormat,
+  UnsignedByteType
+} from "three-universal/build/three.node";
+
+/**
+ * Create a renderer
+ */
+export const getRenderer = ({
+  height,
+  width
+}: {
+  height: number;
+  width: number;
+}): WebGLRenderer => {
+  // @ts-ignore
+  const canvas = {
+    width: width,
+    height: height,
+    addEventListener: event => {},
+    removeEventListener: event => {},
+    getContext: (contextType, attributes) => {
+      return getOr(null, contextType, {
+        webgl: gl(width, height, {
+          ...attributes,
+          preserveDrawingBuffer: true
+        })
+      });
+    }
+  } as HTMLCanvasElement;
+
+  // Create the renderer
+  const renderer = new WebGLRenderer({
+    antialias: false,
+    canvas: canvas,
+    powerPreference: "high-performance"
+  });
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = PCFSoftShadowMap; // default PCFShadowMap
+
+  // Let's create a render target object where we'll be rendering
+  const renderTarget = new WebGLRenderTarget(width, height, {
+    minFilter: LinearFilter,
+    magFilter: NearestFilter,
+    format: RGBAFormat,
+    type: UnsignedByteType
+  });
+  renderer.setRenderTarget(renderTarget);
+  return renderer;
+};
 ```
 
 ## Unsupported DOM interfaces
